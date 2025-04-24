@@ -13,15 +13,17 @@ const Example = () => {
   return (
     <>
       <Header />
+      
       <div
         className="relative min-h-screen"
         style={{
-          backgroundImage: "url(/imgs/random/12.jpg)",
+          backgroundImage: "url('https://alow.com.mx/wp-content/uploads/2025/03/Infografia-sobre-el-crecimiento-de-exportaciones.jpg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-neutral-950/90 to-neutral-950/0" />
+        <TypingHero />
       </div>
       <div className="h-screen bg-neutral-50" />
     </>
@@ -62,7 +64,7 @@ const Logo = ({ color = "white" }) => {
   return (
     <div className="flex items-center gap-2">
       <span className="text-2xl font-bold" style={{ color }}>
-        Placeholder
+        Alow Forwarding
       </span>
       <svg
         width="50"
@@ -145,7 +147,7 @@ const CTAs = () => {
         <span>Sign in</span>
       </button>
       <button className="rounded-lg border-2 border-indigo-300 bg-indigo-300 px-4 py-2 font-semibold text-black transition-colors hover:border-indigo-600 hover:bg-indigo-600 hover:text-white">
-        Schedule a Demo
+        Tracker
       </button>
     </div>
   );
@@ -156,7 +158,7 @@ const AboutUsContent = () => {
     <div className="grid h-fit w-full grid-cols-12 shadow-xl lg:h-72 lg:w-[600px] lg:shadow-none xl:w-[750px]">
       <div className="col-span-12 flex flex-col justify-between bg-neutral-950 p-6 lg:col-span-4">
         <div>
-          <h2 className="mb-2 text-xl font-semibold text-white">About us</h2>
+          <h2 className="mb-2 text-xl font-semibold text-white">HOME</h2>
           <p className="mb-6 max-w-xs text-sm text-neutral-400">
             Placeholder is the world's leading placeholder company.
           </p>
@@ -243,12 +245,12 @@ const PricingContent = () => {
   );
 };
 
-const CareersContent = () => {
+const ContactoContent = () => {
   return (
     <div className="grid w-full grid-cols-12 shadow-xl lg:w-[750px]">
       <div className="col-span-12 flex flex-col justify-between bg-indigo-600 p-6 lg:col-span-4">
         <div className="mb-6">
-          <h2 className="mb-2 text-xl font-semibold text-white">Careers</h2>
+          <h2 className="mb-2 text-xl font-semibold text-white">SERVICES</h2>
           <p className="text-sm text-indigo-100">
             Placeholder was rated a top place to work by Placeholder.
           </p>
@@ -263,6 +265,73 @@ const CareersContent = () => {
     </div>
   );
 };
+
+
+const CareersContent = () => {
+  return (
+    <div className="grid w-full grid-cols-12 shadow-xl lg:w-[750px]">
+      <div className="col-span-12 flex flex-col justify-between bg-indigo-600 p-6 lg:col-span-4">
+        <div className="mb-6">
+          <h2 className="mb-2 text-xl font-semibold text-white">SERVICES</h2>
+          <p className="text-sm text-indigo-100">
+            Placeholder was rated a top place to work by Placeholder.
+          </p>
+        </div>
+        <a
+          href="#"
+          className="flex items-center gap-1 text-xs text-indigo-200 hover:underline"
+        >
+          See open positions <FiArrowRight />
+        </a>
+      </div>
+    </div>
+  );
+};
+
+const TypingHero = () => {
+  const DURATION = 0.6;   // Cada letra tarda 0.8s
+  const STAGGER = 0.1;    // 0.1s de retraso entre ellas
+  const lines = ["CONNECTING WORLDS", "DELIVERING EXPERIENCES"];
+
+  return (
+    // z-10 para que quede por encima del overlay negro
+    <div className="relative z-10 flex min-h-screen items-center justify-center px-4 text-center">
+      <motion.div initial="initial" animate="animated" className="space-y-4">
+        {lines.map((line, idx) => {
+          const splitIndex = line.indexOf(" ");
+          return (
+            <motion.h1
+              key={idx}
+              className="relative block overflow-hidden whitespace-nowrap text-4xl font-normal uppercase text-white sm:text-6xl md:text-7xl lg:text-8xl"
+              style={{ lineHeight: 1.1 }}
+            >
+              <div>
+                {line.split("").map((char, i) => (
+                  <motion.span
+                    key={`${idx}-${i}`}
+                    initial={{ x: "-100%", opacity: 0 }} // Cambié 'y' por 'x' para mover de izquierda a derecha
+                    animate={{ x: 0, opacity: 1 }}
+                    transition={{
+                      duration: DURATION,
+                      ease: "easeInOut",
+                      delay: STAGGER * (idx * line.length + i),
+                    }}
+                    className={`inline-block ${
+                      i < splitIndex ? "text-orange-500" : "text-white"
+                    }`}
+                  >
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.h1>
+          );
+        })}
+      </motion.div>
+    </div>
+  );
+};
+
 
 const MobileMenu = () => {
   const [open, setOpen] = useState(false);
@@ -305,17 +374,27 @@ const MobileMenu = () => {
 
 const LINKS = [
   {
-    text: "About Us",
+    text: "Home",
     href: "#",
     component: AboutUsContent,
   },
   {
-    text: "Pricing",
+    text: "About",
     href: "#",
     component: PricingContent,
   },
   {
-    text: "Careers",
+    text: "Services",
+    href: "#",
+    component: PricingContent,
+  },
+  {
+    text: "Contact",
+    href: "#",
+    component: ContactoContent,
+  },
+  {
+    text: "Blog",
     href: "#",
     component: CareersContent,
   },
